@@ -1,13 +1,13 @@
-import SignUp from "./components/logIn-SignUp/SignUp"
-import Welcome from "./components/Welcome-Page/Welcome"
+import LogIn from "./components/logIn-SignUp/LogIn.jsx";
+import SignUp from "./components/logIn-SignUp/SignUp.jsx";
 
 function App() {
-
   return (
     <>
       <SignUp />
+      <LogIn />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 
 function SignUp() {
@@ -60,7 +61,7 @@ function SignUp() {
           <div className="flex gap-4.5">
             <p>If you already have an account?</p>
             {/* <button className="bg-cyan-400 text-white hover:bg-cyan-500 ">Login</button>   */}
-            <a href="#" className="text-blue-800 font-bold underline">Login</a>
+            <Link to="/login" className="text-blue-800 font-bold underline">Login</Link>
           </div>
         </form>
       </main>
