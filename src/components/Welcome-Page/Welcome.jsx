@@ -1,10 +1,13 @@
-import Navbar from "./Navbar";
+import SignBtnHandler from "./Sign-btn-handler";
+import LoginBtnHandler from "./Login-btn-handler";
 
 function Welcome() {
   return (
     <>
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
-          <header className="absolute top-2.5 text-4xl font-bold text-gray-800">Student Management System</header>
+        <header className="absolute top-2.5 text-4xl font-bold text-gray-800">
+          Student Management System
+        </header>
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Left Content */}
@@ -20,13 +23,9 @@ function Welcome() {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                  Login
-                </button>
+                <LoginBtnHandler />
 
-                <button className="px-6 py-3 bg-white text-blue-600 border border-blue-600 rounded-lg font-medium hover:bg-blue-50 transition">
-                  Sign Up
-                </button>
+                <SignBtnHandler />
               </div>
             </div>
 
@@ -40,7 +39,9 @@ function Welcome() {
             </div>
           </div>
         </div>
-        <footer className=" text-gray-600 absolute bottom-4">Made by Bamania Rudresh Vinay Chandra </footer>
+        <footer className=" text-gray-600 absolute bottom-4">
+          Made by Bamania Rudresh Vinay Chandra{" "}
+        </footer>
       </div>
     </>
   );
