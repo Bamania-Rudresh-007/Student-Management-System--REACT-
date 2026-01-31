@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
-
-*{
+* {
   box-sizing: border-box;
 }
 
-body{
+body {
   font-family: "Fira Code", monospace;
   font-optical-sizing: auto;
   height: 100vh;
@@ -13,5 +12,3 @@ body{
   /* background-color: #000; */
   /* color: #66FCF1; */
 }
-  
-

@@ -5,11 +5,12 @@ import App from "./App.jsx";
 import LogIn from "./components/logIn-SignUp/LogIn.jsx";
 import SignUp from "./components/logIn-SignUp/SignUp.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Welcome from "./components/Welcome-Page/Welcome.jsx";
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <SignUp />
+    element: <Welcome />
   },
   {    
     path: "/login",
