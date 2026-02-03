@@ -1,21 +1,9 @@
 import { Link } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import SignUpInput from "./Input";
-import { useContext } from "react";
-import { UsersContext } from "../../../data/UsersContext.jsx";
-
-function useUsers() {
-  const context = useContext(UsersContext);
-
-  if (!context) {
-    throw new Error("useUsers must be used within usersProvider");
-  }
-
-  return context;
-}
 
 function SignUp() {
-  const { signUp } = useUsers();
+
 
   return (
     <div>
@@ -26,7 +14,7 @@ function SignUp() {
             <p className="text-gray-500 text-sm mt-1">Create your account</p>
           </header>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={() => console.log("Submited data", users)}>
             {/* For username */}
             <SignUpInput
               lab="Name"
@@ -34,7 +22,6 @@ function SignUp() {
               id="name"
               htmlFor="name"
               placeholder="Bamania Rudresh"
-              // onUpdate={logIn}
             />
 
             {/* For useremail */}
@@ -44,7 +31,6 @@ function SignUp() {
               id="email"
               htmlFor="email"
               placeholder="name@example.com"
-              // onUpdate={logIn}
             />
 
             {/* For password */}
@@ -54,16 +40,11 @@ function SignUp() {
               id="pass"
               htmlFor="pass"
               placeholder="name1234"
-              // onUpdate={logIn}
             />
 
             <button
               type="submit"
               className="w-full mt-4 flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold py-2 rounded-md transition"
-              onClick={(e) => {
-                e.preventDefault();
-                signUp(e);
-              }}
             >
               <FaSignInAlt />
               Sign Up
