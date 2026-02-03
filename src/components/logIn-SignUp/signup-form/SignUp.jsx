@@ -15,7 +15,7 @@ function useUsers() {
 }
 
 function SignUp() {
-  const logIn  = useUsers();
+  const { signUp } = useUsers();
 
   return (
     <div>
@@ -60,9 +60,9 @@ function SignUp() {
             <button
               type="submit"
               className="w-full mt-4 flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold py-2 rounded-md transition"
-              onClick={(e)=>{
+              onClick={(e) => {
                 e.preventDefault();
-                logIn(e);
+                signUp(e);
               }}
             >
               <FaSignInAlt />

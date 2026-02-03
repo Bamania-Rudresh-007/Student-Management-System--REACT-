@@ -6,15 +6,16 @@ import LogIn from "./components/logIn-SignUp/login-form/LogIn.jsx";
 import SignUp from "./components/logIn-SignUp/signup-form/SignUp.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Welcome from "./components/Welcome-Page/Welcome.jsx";
+import { UsersProvider } from "./data/UsersContext.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Welcome />
+    path: "/",
+    element: <Welcome />,
   },
-  {    
+  {
     path: "/login",
-    element: <LogIn />
+    element: <LogIn />,
   },
   {
     path: "/signup",
@@ -24,8 +25,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}>
-    <App />
-    </RouterProvider>
+    <UsersProvider>
+      <RouterProvider router={router}>
+        <App />
+      </RouterProvider>
+    </UsersProvider>
   </StrictMode>,
 );

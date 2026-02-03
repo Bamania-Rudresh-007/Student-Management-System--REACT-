@@ -6,7 +6,7 @@ export function UsersProvider({children}){
 
   const [users, setUsers] = useState('');
   
-  const logIn = (e)=>{
+  const signUp = (e)=>{
     setUsers(e.target.value);
   }
   
@@ -20,7 +20,7 @@ export function UsersProvider({children}){
   // }
 
 
-  return <UsersContext.Provider value={logIn}>{children}</UsersContext.Provider>
+  return <UsersContext.Provider value={signUp}>{children}</UsersContext.Provider>
 }
 
 
