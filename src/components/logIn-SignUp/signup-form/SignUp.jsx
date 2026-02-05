@@ -1,9 +1,24 @@
 import { Link } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import SignUpInput from "./Input";
+import { useState } from "react";
+import { useUsers } from "../../../contexts/UsersContext";
 
 function SignUp() {
 
+  const {setMember} = useUsers()
+  const [user, setUser] = useState({name: "", email: "", password: ""});
+
+  const handleChange= (e) =>{
+    const {id, value} = e.target;
+    setUser((prev) => ({...prev, [id]: value,}))
+  }
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    setMember((prev) => [...prev, user]);
+    console.log("Data submitted: ", user);
+  }
 
   return (
     <div>
@@ -14,7 +29,7 @@ function SignUp() {
             <p className="text-gray-500 text-sm mt-1">Create your account</p>
           </header>
 
-          <form className="space-y-4" onSubmit={() => console.log("Submited data", users)}>
+          <form className="space-y-4" onSubmit={handleSubmit}>
             {/* For username */}
             <SignUpInput
               lab="Name"
@@ -22,6 +37,7 @@ function SignUp() {
               id="name"
               htmlFor="name"
               placeholder="Bamania Rudresh"
+              onUpdate={handleChange}
             />
 
             {/* For useremail */}
@@ -31,15 +47,17 @@ function SignUp() {
               id="email"
               htmlFor="email"
               placeholder="name@example.com"
+              onUpdate={handleChange}
             />
 
             {/* For password */}
             <SignUpInput
               lab="Password"
               type="password"
-              id="pass"
-              htmlFor="pass"
+              id="password"
+              htmlFor="password"
               placeholder="name1234"
+              onUpdate={handleChange}
             />
 
             <button

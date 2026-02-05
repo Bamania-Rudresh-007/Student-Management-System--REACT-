@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+// import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -6,6 +6,7 @@ import LogIn from "./components/logIn-SignUp/login-form/LogIn.jsx";
 import SignUp from "./components/logIn-SignUp/signup-form/SignUp.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Welcome from "./components/Welcome-Page/Welcome.jsx";
+import { UsersProvider } from "./contexts/UsersContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,9 +24,11 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
+  <UsersProvider>
       <RouterProvider router={router}>
         <App />
       </RouterProvider>
-  </StrictMode>
+  </UsersProvider>
+  // </StrictMode>
 );
