@@ -1,24 +1,30 @@
 import { Link } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
-import SignUpInput from "./Input";
+import SignUpInput from "./Input.jsx";
+import InputPass from "./inputPass.jsx";
 import { useState } from "react";
 import { useUsers } from "../../../contexts/UsersContext";
 
 function SignUp() {
+  const { setMember, arrayOfMember } = useUsers();
+  const [user, setUser] = useState({ name: "", email: "", password: "" });
+  const [passType, setPassType] = useState("password");
 
-  const {setMember} = useUsers()
-  const [user, setUser] = useState({name: "", email: "", password: ""});
+  const handleChange = (e) => {
+    let { id, value } = e.target;
+    setUser((prev) => ({ ...prev, [id]: value }));
+  };
 
-  const handleChange= (e) =>{
-    const {id, value} = e.target;
-    setUser((prev) => ({...prev, [id]: value,}))
-  }
-
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setMember((prev) => [...prev, user]);
-    console.log("Data submitted: ", user);
-  }
+
+    const processedUserArray = arrayOfMember(user);
+
+    if (user.name != "") {
+      setMember((prev) => [...prev, ...processedUserArray]);
+      setUser({ name: "", email: "", password: "" });
+    }
+  };
 
   return (
     <div>
@@ -29,7 +35,12 @@ function SignUp() {
             <p className="text-gray-500 text-sm mt-1">Create your account</p>
           </header>
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form
+            className="space-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             {/* For username */}
             <SignUpInput
               lab="Name"
@@ -38,6 +49,7 @@ function SignUp() {
               htmlFor="name"
               placeholder="Bamania Rudresh"
               onUpdate={handleChange}
+              value={user.name}
             />
 
             {/* For useremail */}
@@ -48,21 +60,26 @@ function SignUp() {
               htmlFor="email"
               placeholder="name@example.com"
               onUpdate={handleChange}
+              value={user.email}
             />
 
             {/* For password */}
-            <SignUpInput
+            <InputPass
               lab="Password"
-              type="password"
+              type={passType}
               id="password"
               htmlFor="password"
               placeholder="name1234"
               onUpdate={handleChange}
+              passType={passType}
+              setPassType={setPassType}
+              value={user.password}
             />
 
             <button
               type="submit"
-              className="w-full mt-4 flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold py-2 rounded-md transition"
+              className="w-full mt-4 flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold py-2 rounded-md transition cursor-pointer"
+              onClick={handleSubmit}
             >
               <FaSignInAlt />
               Sign Up
