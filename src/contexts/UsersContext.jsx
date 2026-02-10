@@ -1,9 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import useLocalUsers from "./useLocalUsers";
 
 const UsersContext = createContext();
 
 export function UsersProvider({ children }) {
-  const [member, setMember] = useState([]);
+  const [member, setMember] = useLocalUsers();
 
   const arrayOfMember = (data) => {
     const dataArray = Array.isArray(data) ? data : [data];
@@ -12,10 +13,6 @@ export function UsersProvider({ children }) {
       return { ...element, id: Date.now() + index };
     });
   };
-
-  useEffect(() => {
-    console.log(member);
-  }, [member]);
 
   const values = {
     member,
