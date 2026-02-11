@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import InputPass from "./inputPass";
+// import { useNavigate } from "react-router-dom";
 
 function LogIn() {
+    // const navigate = useNavigate();
     const [passType, setPassType] = useState("password");
     const [user, setUser] = useState({email: "", password: ""});
     // storing user email pass to check wheather they are signed up or not!!
@@ -25,6 +27,12 @@ function LogIn() {
             }
          })
      }
+
+    //  // Navigate handler
+
+    //  const handleNavigate = () => {
+    //     navigate("/home");
+    //  }
 
   return (
     <>
