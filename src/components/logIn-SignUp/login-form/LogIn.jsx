@@ -1,13 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import InputPass from "./inputPass";
-// import { useNavigate } from "react-router-dom";
 
 function LogIn() {
-    // const navigate = useNavigate();
+    // navigate to navigate anywhere in webpage
+    const navigate = useNavigate();
+        
+    // for hide/show functionality
     const [passType, setPassType] = useState("password");
+
+    // for the current login varification
     const [user, setUser] = useState({email: "", password: ""});
+
     // storing user email pass to check wheather they are signed up or not!!
     const handleChange = (e) => {
         const {id , value} = e.target;
@@ -16,23 +21,22 @@ function LogIn() {
 
     // checking wheather they are signedUp or not...?
     const handleVarificationOfUser = () => {
-
         const existingData = localStorage.getItem('signUpUsers');
-        JSON.parse(existingData).forEach((data) => {
-            if(data.email == user.email){
-                console.log(true);
+        let isLogin = false;
+
+        JSON.parse(existingData).find((Existinguser) => {
+            if(Existinguser.email == user.email){
+                console.log(Existinguser)
+                isLogin =  true;
             }
             else{
-                console.log(false);
+                isLogin = false;
             }
-         })
+        })
+        isLogin ? navigate("/home") : isLogin;
+
      }
 
-    //  // Navigate handler
-
-    //  const handleNavigate = () => {
-    //     navigate("/home");
-    //  }
 
   return (
     <>
@@ -78,8 +82,7 @@ function LogIn() {
             <div className="w-full mt-5">
               <button className="w-full flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold py-2 rounded-md transition"
               onClick={() => {
-                console.log(user)
-                handleVarificationOfUser()
+                handleVarificationOfUser();
               }}
               >
                 <FaUser /> Login

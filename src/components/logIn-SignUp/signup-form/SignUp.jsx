@@ -3,9 +3,10 @@ import { FaSignInAlt } from "react-icons/fa";
 import SignUpInput from "./Input.jsx";
 import InputPass from "./inputPass.jsx";
 import { useState } from "react";
-import { useUsers } from "../../../contexts/UsersContext";
+import { useUsers } from "../../../contexts/UsersContext.jsx";
 
-function SignUp() {
+function SignUp({isLogin, setIsLogin}) {
+
   const { setMember, arrayOfMember } = useUsers();
   const [user, setUser] = useState({ name: "", email: "", password: "" });
   const [passType, setPassType] = useState("password");
@@ -16,7 +17,7 @@ function SignUp() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     const processedUserArray = arrayOfMember(user);
 
@@ -24,10 +25,19 @@ function SignUp() {
       setMember((prev) => [...prev, ...processedUserArray]);
       setUser({ name: "", email: "", password: "" });
     }
+    handlerIsLogin();
   };
 
+  const handlerIsLogin = () => {
+    if(user.name != ""){
+        // setIsLogin(true);
+        console.log(isLogin);
+    }
+  }
+
+
   return (
-    <div>
+    <div>        
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <main className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
           <header className="mb-6 text-center">
