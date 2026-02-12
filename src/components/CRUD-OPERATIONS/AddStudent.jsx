@@ -1,6 +1,5 @@
-import React from "react";
 
-function UpdateStudent() {
+function AddStudent() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
       
@@ -8,28 +7,16 @@ function UpdateStudent() {
         
         {/* Title */}
         <div className="mb-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-600">
-            Update Student
+          <h2 className="text-3xl md:text-4xl font-bold text-indigo-600">
+            Add New Student
           </h2>
           <p className="text-gray-500 mt-2">
-            Modify the student details below.
+            Fill in the details below to register a student.
           </p>
         </div>
 
         {/* Form */}
         <form className="space-y-6">
-
-          {/* Student ID */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">
-              Student ID
-            </label>
-            <input
-              type="text"
-              placeholder="Enter student ID"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
-            />
-          </div>
 
           {/* Full Name */}
           <div>
@@ -38,8 +25,8 @@ function UpdateStudent() {
             </label>
             <input
               type="text"
-              defaultValue="John Doe"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+              placeholder="Enter full name"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
             />
           </div>
 
@@ -50,8 +37,8 @@ function UpdateStudent() {
             </label>
             <input
               type="email"
-              defaultValue="john@example.com"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+              placeholder="Enter email"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
             />
           </div>
 
@@ -63,8 +50,8 @@ function UpdateStudent() {
               </label>
               <input
                 type="text"
-                defaultValue="9876543210"
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+                placeholder="Enter phone number"
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
               />
             </div>
 
@@ -74,8 +61,8 @@ function UpdateStudent() {
               </label>
               <input
                 type="text"
-                defaultValue="101"
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+                placeholder="Enter roll number"
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
               />
             </div>
           </div>
@@ -86,8 +73,7 @@ function UpdateStudent() {
               Course
             </label>
             <select
-              defaultValue="BCA"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
             >
               <option>Select Course</option>
               <option>BCA</option>
@@ -104,8 +90,8 @@ function UpdateStudent() {
             </label>
             <textarea
               rows="3"
-              defaultValue="123 Main Street, City"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+              placeholder="Enter address"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
             ></textarea>
           </div>
 
@@ -113,16 +99,16 @@ function UpdateStudent() {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
-              className="flex-1 bg-yellow-500 text-white py-3 rounded-xl font-semibold hover:bg-yellow-600 transition shadow-md"
+              className="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition shadow-md"
             >
-              Update Student
+              Add Student
             </button>
 
             <button
-              type="button"
+              type="reset"
               className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition"
             >
-              Cancel
+              Reset
             </button>
           </div>
 
@@ -133,4 +119,4 @@ function UpdateStudent() {
   );
 }
 
-export default UpdateStudent;
+export default AddStudent;

@@ -7,11 +7,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Welcome from "./components/Welcome-Page/Welcome.jsx";
 import { UsersProvider } from "./contexts/UsersContext.jsx";
 import Home from "./components/Home/Home.jsx";
+import AddStudent from "./components/CRUD-OPERATIONS/AddStudent.jsx";
+import UpdateStudent from "./components/CRUD-OPERATIONS/UpdateStudent.jsx";
+import DeleteStudent from "./components/CRUD-OPERATIONS/DeleteStudent.jsx";
+import ViewStudentCards from "./components/AllStudents-AND-PersonalCards/ViewStudentCards.jsx";
+import ViewStudentDetails from "./components/AllStudents-AND-PersonalCards/ViewStudentsDetails.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Welcome />,
+    // element: <Home />,
   },
   {
     path: "/login",
@@ -24,7 +30,27 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <Home />
-  }
+  },
+  {
+    path: "/addStudent",
+    element: <AddStudent />
+  },
+  {
+    path: "/updateStudent",
+    element: <UpdateStudent />
+  },
+  {
+    path: "/deleteStudent",
+    element: <DeleteStudent />
+  },
+  {
+    path: "/viewStudents",
+    element: <ViewStudentCards   />
+  },
+  {
+    path: "/viewStudentDetails",
+    element: <ViewStudentDetails   />
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
