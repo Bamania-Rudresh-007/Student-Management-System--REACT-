@@ -2,14 +2,16 @@ import { Link } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import SignUpInput from "./Input.jsx";
 import InputPass from "./inputPass.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUsers } from "../../../contexts/UsersContext.jsx";
 
-function SignUp({isLogin, setIsLogin}) {
+function SignUp() {
 
-  const { setMember, arrayOfMember } = useUsers();
+  const { setMember, arrayOfMember, setIsLogin } = useUsers();
   const [user, setUser] = useState({ name: "", email: "", password: "" });
   const [passType, setPassType] = useState("password");
+    // const [ isLogin , setIsLogin ] = useState(false);
+
 
   const handleChange = (e) => {
     let { id, value } = e.target;
@@ -25,14 +27,14 @@ function SignUp({isLogin, setIsLogin}) {
       setMember((prev) => [...prev, ...processedUserArray]);
       setUser({ name: "", email: "", password: "" });
     }
-    handlerIsLogin();
+
   };
 
   const handlerIsLogin = () => {
-    if(user.name != ""){
-        // setIsLogin(true);
-        console.log(isLogin);
-    }
+    // if(user.name != ""){
+        setIsLogin(true);
+        // console.log(isLogin);
+    // }
   }
 
 
@@ -93,6 +95,14 @@ function SignUp({isLogin, setIsLogin}) {
             >
               <FaSignInAlt />
               Sign Up
+            </button>
+
+            <button
+              type="submit"
+              className="w-full mt-4 flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold py-2 rounded-md transition cursor-pointer"
+              onClick={handlerIsLogin}
+            >
+              handleIsLogin
             </button>
             <div className="flex gap-4.5">
               <p>If you already have an account?</p>

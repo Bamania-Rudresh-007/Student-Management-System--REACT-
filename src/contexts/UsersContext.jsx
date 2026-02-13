@@ -5,6 +5,12 @@ const UsersContext = createContext();
 
 export function UsersProvider({ children }) {
   const [member, setMember] = useLocalUsers();
+  const [isLogin, setIsLogin] = useState(false);
+
+    useEffect(() => {
+        console.log(isLogin);
+    }, [isLogin]);
+
 
   const arrayOfMember = (data) => {
     const dataArray = Array.isArray(data) ? data : [data];
@@ -18,6 +24,7 @@ export function UsersProvider({ children }) {
     member,
     setMember,
     arrayOfMember,
+    setIsLogin,
   };
 
   return (
