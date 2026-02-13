@@ -1,6 +1,21 @@
 import { useNavigate, Link } from 'react-router-dom';
+import { useUsers } from "../../contexts/UsersContext.jsx"
 
 function Home() {
+    const navigate = useNavigate();
+    const {setIsLogin} =  useUsers();
+
+  // handles the logOut button
+  const handleLogout = () => {
+      setIsLogin(() => {
+          localStorage.setItem("isLogin", JSON.stringify(false));
+      })
+    navigate("/");
+    window.location.reload();
+  }
+
+
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
 
@@ -8,7 +23,7 @@ function Home() {
       <header className="bg-indigo-600 text-white py-4 px-6 shadow-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold">Student Dashboard</h1>
-          <button className="bg-white text-indigo-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition cursor-pointer">
+          <button className="bg-white text-indigo-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition cursor-pointer" onClick={handleLogout}>
             Logout
           </button>
         </div>

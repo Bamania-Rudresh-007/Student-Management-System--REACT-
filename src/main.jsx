@@ -3,7 +3,7 @@ import "./index.css";
 import App from "./App.jsx";
 import LogIn from "./components/logIn-SignUp/login-form/LogIn.jsx";
 import SignUp from "./components/logIn-SignUp/signup-form/SignUp.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import Welcome from "./components/Welcome-Page/Welcome.jsx";
 import { UsersProvider } from "./contexts/UsersContext.jsx";
 import Home from "./components/Home/Home.jsx";
@@ -13,10 +13,12 @@ import DeleteStudent from "./components/CRUD-OPERATIONS/DeleteStudent.jsx";
 import ViewStudentCards from "./components/AllStudents-AND-PersonalCards/ViewStudentCards.jsx";
 import ViewStudentDetails from "./components/AllStudents-AND-PersonalCards/ViewStudentsDetails.jsx";
 
+const isLogin = JSON.parse(localStorage.getItem("isLogin"))
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Welcome />,
+    element: isLogin ? <Navigate to="/home"/> : <Welcome />
   },
   {
     path: "/login",
@@ -51,6 +53,7 @@ const router = createBrowserRouter([
     element: <ViewStudentDetails   />
   },
 ]);
+
 
 createRoot(document.getElementById("root")).render(
   <UsersProvider>

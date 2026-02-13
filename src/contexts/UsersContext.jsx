@@ -5,7 +5,11 @@ const UsersContext = createContext();
 
 export function UsersProvider({ children }) {
   const [member, setMember] = useLocalUsers();
-  const [isLogin, setIsLogin] = useState(false);
+
+  const [isLogin, setIsLogin] = useState(() => {
+    const storedIsLoginInfo = localStorage.getItem("isLogin");
+    return storedIsLoginInfo ? JSON.parse(storedIsLoginInfo) : false;
+  });
 
     useEffect(() => {
         console.log(isLogin);

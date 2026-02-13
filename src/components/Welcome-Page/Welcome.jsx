@@ -3,7 +3,7 @@ import LoginBtnHandler from "./Login-btn-handler";
 
 function Welcome() {
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-indigo-50 via-white to-blue-100 flex flex-col">
+    <div className="min-h-screen w-full overflow-x-hidden bg-linear-to-br from-indigo-50 via-white to-blue-100 flex flex-col">
       
       {/* Header */}
       <header className="py-6 text-center text-3xl md:text-4xl font-extrabold text-indigo-700 tracking-wide">

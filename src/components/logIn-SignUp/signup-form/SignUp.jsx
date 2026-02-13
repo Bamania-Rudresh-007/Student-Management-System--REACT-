@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import SignUpInput from "./Input.jsx";
 import InputPass from "./inputPass.jsx";
@@ -10,33 +10,36 @@ function SignUp() {
   const { setMember, arrayOfMember, setIsLogin } = useUsers();
   const [user, setUser] = useState({ name: "", email: "", password: "" });
   const [passType, setPassType] = useState("password");
-    // const [ isLogin , setIsLogin ] = useState(false);
+  const navigate = useNavigate()
 
-
+    // hanldes the changes for the current user and updates to the localstorage
   const handleChange = (e) => {
     let { id, value } = e.target;
     setUser((prev) => ({ ...prev, [id]: value }));
   };
 
+  //  handles the submit button of the signUp Form 
   const handleSubmit = (e) => {
-    // e.preventDefault();
-
     const processedUserArray = arrayOfMember(user);
 
     if (user.name != "") {
       setMember((prev) => [...prev, ...processedUserArray]);
       setUser({ name: "", email: "", password: "" });
     }
-
+    handlerIsLogin()
   };
-
+  
+  // handles the auto redirect to home page if user is already signEd up
   const handlerIsLogin = () => {
-    // if(user.name != ""){
-        setIsLogin(true);
-        // console.log(isLogin);
-    // }
+    if(user.name == "" && user.email == "" || user.password == ""){
+        alert("First fill the Above details please...")
+        return;
+    }
+    setIsLogin(() => {
+        localStorage.setItem("isLogin", JSON.stringify(true));
+    });
+    navigate("/home");
   }
-
 
   return (
     <div>        
@@ -97,13 +100,6 @@ function SignUp() {
               Sign Up
             </button>
 
-            <button
-              type="submit"
-              className="w-full mt-4 flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-500 text-white font-semibold py-2 rounded-md transition cursor-pointer"
-              onClick={handlerIsLogin}
-            >
-              handleIsLogin
-            </button>
             <div className="flex gap-4.5">
               <p>If you already have an account?</p>
               <Link to="/login" className="text-blue-800 font-bold underline">
