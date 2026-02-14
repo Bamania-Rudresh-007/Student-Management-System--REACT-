@@ -4,20 +4,25 @@ export default function useStudentServices() {
 
     const [student , setStudent] = useState(() => {
         try {
-        const storedStudents = JSON.parse(localStorage.getItem("students"));
-        return storedStudents ? [storedStudents] : [];            
+        const storedStudents = localStorage.getItem("students");
+        return storedStudents ? JSON.parse(storedStudents) : [];            
         } catch (error) {
             console.error("Failed to fetch students data from local Storage...", error);
+            return [];
         }
     });
 
     const addStudent = (currentStudent) => {
         try {
-            localStorage.setItem("students", JSON.stringify(currentStudent));
+            const updatedStudent = [...student, currentStudent];
+            setStudent(updatedStudent)
+            localStorage.setItem("students", JSON.stringify(student));
         } catch (error) {
             console.error("Failed to store the current student data in local storage...", error);
+            return [];
         }
     };
+
 
     const updateStudent = () => {};
 

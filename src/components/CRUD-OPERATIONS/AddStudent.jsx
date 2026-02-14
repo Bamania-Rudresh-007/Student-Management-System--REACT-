@@ -1,5 +1,25 @@
+import { useEffect, useState } from "react";
+import useStudentServices from "../../hooks/useCrudOperations.js";
+import { number } from "framer-motion";
 
 function AddStudent() {
+
+    const { addStudent } = useStudentServices();
+
+    const [currentStudent, setCurrentStudent] = useState({
+        name: "",
+        email: "",
+        number: "",
+        rollNumber: "",
+        course: "",
+        address: "",
+    })
+
+    const handleAddStudentChanges = (e) => {
+        const {id , value} = e.target;
+        setCurrentStudent({...currentStudent, [id]: value});
+    }
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
       
@@ -16,7 +36,9 @@ function AddStudent() {
         </div>
 
         {/* Form */}
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={(e) => {
+            e.preventDefault()
+        }}>
 
           {/* Full Name */}
           <div>
@@ -25,8 +47,13 @@ function AddStudent() {
             </label>
             <input
               type="text"
+              id="name"
               placeholder="Enter full name"
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+              onChange={(e) => {
+                handleAddStudentChanges(e)
+                console.log(e)
+              }}
             />
           </div>
 
@@ -38,7 +65,11 @@ function AddStudent() {
             <input
               type="email"
               placeholder="Enter email"
+              id="email"
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+              onChange={(e) => {
+                handleAddStudentChanges(e)
+              }}
             />
           </div>
 
@@ -49,9 +80,13 @@ function AddStudent() {
                 Phone Number
               </label>
               <input
-                type="text"
+                type="number"
+                id="number"
                 placeholder="Enter phone number"
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                onChange={(e) => {
+                    handleAddStudentChanges(e)
+                }}
               />
             </div>
 
@@ -60,9 +95,13 @@ function AddStudent() {
                 Roll Number
               </label>
               <input
-                type="text"
+                type="number"
+                id="rollNumber"
                 placeholder="Enter roll number"
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                onChange={(e) => {
+                    handleAddStudentChanges(e)
+                }}
               />
             </div>
           </div>
@@ -73,7 +112,11 @@ function AddStudent() {
               Course
             </label>
             <select
+            id="course"
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+              onChange={(e) => {
+                handleAddStudentChanges(e)
+              }}
             >
               <option>Select Course</option>
               <option>BCA</option>
@@ -90,8 +133,12 @@ function AddStudent() {
             </label>
             <textarea
               rows="3"
+              id="address"
               placeholder="Enter address"
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+              onChange={(e) => {
+                handleAddStudentChanges(e)
+              }}
             ></textarea>
           </div>
 
@@ -100,6 +147,18 @@ function AddStudent() {
             <button
               type="submit"
               className="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition shadow-md cursor-pointer"
+              onClick={() => {
+                addStudent(currentStudent)
+                setCurrentStudent({
+                    name: "",
+                    email: "",
+                    number: "",
+                    rollNumber: "",
+                    course: "",
+                    address: "",
+                })
+                console.log(currentStudent)
+              }}
             >
               Add Student
             </button>
