@@ -99,14 +99,14 @@ function AddStudent() {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
-              className="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition shadow-md"
+              className="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition shadow-md cursor-pointer"
             >
               Add Student
             </button>
 
             <button
               type="reset"
-              className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition"
+              className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition cursor-pointer"
             >
               Reset
             </button>

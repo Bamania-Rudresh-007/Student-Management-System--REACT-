@@ -11,6 +11,7 @@ import AddStudent from "./components/CRUD-OPERATIONS/AddStudent.jsx";
 import UpdateStudent from "./components/CRUD-OPERATIONS/UpdateStudent.jsx";
 import DeleteStudent from "./components/CRUD-OPERATIONS/DeleteStudent.jsx";
 import ViewStudentCards from "./components/AllStudents-AND-PersonalCards/ViewStudentCards.jsx";
+import { StudentsProvider } from "./contexts/StudentsContext.jsx";
 import ViewStudentDetails from "./components/AllStudents-AND-PersonalCards/ViewStudentsDetails.jsx";
 
 const isLogin = JSON.parse(localStorage.getItem("isLogin"))
@@ -57,8 +58,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <UsersProvider>
+    <StudentsProvider>
       <RouterProvider router={router}>
         <App />
       </RouterProvider>
+      </StudentsProvider>
   </UsersProvider>
 );

@@ -64,7 +64,7 @@ function Home() {
 
       {/* Logout button on desktop - below card */}
       <button 
-        className="hidden lg:block bg-white text-indigo-700 px-6 py-3 rounded-xl font-bold hover:bg-indigo-50 active:scale-95 transition-all shadow-lg hover:shadow-xl text-base mt-8 w-full"
+        className="hidden lg:block bg-white text-indigo-700 px-6 py-3 rounded-xl font-bold hover:bg-indigo-50 active:scale-95 transition-all shadow-lg hover:text-xl hover:shadow-xl text-base mt-8 w-full cursor-pointer hover:scale-100  duration-200"
         onClick={handleLogout}
       >
         Logout
