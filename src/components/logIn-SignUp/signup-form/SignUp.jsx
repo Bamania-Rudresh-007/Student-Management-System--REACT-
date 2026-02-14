@@ -7,31 +7,33 @@ import { useUsers } from "../../../contexts/UsersContext.jsx";
 
 function SignUp() {
 
-  const { setMember, arrayOfMember, setIsLogin } = useUsers();
-  const [user, setUser] = useState({ name: "", email: "", password: "" });
+  const { setMember, arrayOfMember, setIsLogin,  signUpUser, setSignUpUser} = useUsers();
+
+//   const [signUpUser, setSignUpUser] = useState({ name: "", email: "", password: "" });
   const [passType, setPassType] = useState("password");
   const navigate = useNavigate()
 
-    // hanldes the changes for the current user and updates to the localstorage
+    // hanldes the changes for the current signUpUser and updates to the localstorage
   const handleChange = (e) => {
     let { id, value } = e.target;
-    setUser((prev) => ({ ...prev, [id]: value }));
+    setSignUpUser((prev) => ({ ...prev, [id]: value }));
   };
 
   //  handles the submit button of the signUp Form 
   const handleSubmit = (e) => {
-    const processedUserArray = arrayOfMember(user);
+    const processedUserArray = arrayOfMember(signUpUser);
 
-    if (user.name != "") {
+    if (signUpUser.name != "") {
       setMember((prev) => [...prev, ...processedUserArray]);
-      setUser({ name: "", email: "", password: "" });
+      setSignUpUser({ name: "", email: "", password: "" });
+      localStorage.setItem("currentLogInUser", JSON.stringify(signUpUser));
     }
     handlerIsLogin()
   };
   
-  // handles the auto redirect to home page if user is already signEd up
+  // handles the auto redirect to home page if signUpUser is already signEd up
   const handlerIsLogin = () => {
-    if(user.name == "" && user.email == "" || user.password == ""){
+    if(signUpUser.name == "" && signUpUser.email == "" || signUpUser.password == ""){
         alert("First fill the Above details please...")
         return;
     }
@@ -64,7 +66,7 @@ function SignUp() {
               htmlFor="name"
               placeholder="Bamania Rudresh"
               onUpdate={handleChange}
-              value={user.name}
+              value={signUpUser.name}
             />
 
             {/* For useremail */}
@@ -75,7 +77,7 @@ function SignUp() {
               htmlFor="email"
               placeholder="name@example.com"
               onUpdate={handleChange}
-              value={user.email}
+              value={signUpUser.email}
             />
 
             {/* For password */}
@@ -88,7 +90,7 @@ function SignUp() {
               onUpdate={handleChange}
               passType={passType}
               setPassType={setPassType}
-              value={user.password}
+              value={signUpUser.password}
             />
 
             <button

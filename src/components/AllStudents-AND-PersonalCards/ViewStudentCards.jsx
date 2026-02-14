@@ -53,7 +53,7 @@ function ViewStudentCards() {
                 Email: john@example.com
               </div>
             <Link to={"/viewStudentDetails"}>
-                <button className="mt-auto bg-indigo-600 text-white py-2 rounded-xl font-semibold hover:bg-indigo-700 transition px-4.5">
+                <button className="mt-auto bg-indigo-600 text-white py-2 rounded-xl font-semibold hover:bg-indigo-700 transition w-5/5">
                     View Details
                 </button>
             </Link>

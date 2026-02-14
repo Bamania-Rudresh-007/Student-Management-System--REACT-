@@ -5,22 +5,26 @@ const UsersContext = createContext();
 
 export function UsersProvider({ children }) {
   const [member, setMember] = useLocalUsers();
+    const [signUpUser, setSignUpUser] = useState({ name: "", email: "", password: "" });
+    const [loginUser, setLoginUser] = useState({email: "", password: ""});
+
+
 
   const [isLogin, setIsLogin] = useState(() => {
     const storedIsLoginInfo = localStorage.getItem("isLogin");
     return storedIsLoginInfo ? JSON.parse(storedIsLoginInfo) : false;
   });
 
-    useEffect(() => {
-        console.log(isLogin);
-    }, [isLogin]);
+    // useEffect(() => {
+    //     console.log(isLogin);
+    // }, [isLogin]);
 
 
   const arrayOfMember = (data) => {
     const dataArray = Array.isArray(data) ? data : [data];
 
     return dataArray.map((element, index) => {
-      return { ...element, id: Date.now() + index };
+      return { ...element, id: Date.now() + index, logedIn: true };
     });
   };
 
@@ -29,6 +33,10 @@ export function UsersProvider({ children }) {
     setMember,
     arrayOfMember,
     setIsLogin,
+    signUpUser,
+    setSignUpUser,
+    loginUser,
+    setLoginUser,
   };
 
   return (

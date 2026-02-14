@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import InputPass from "./inputPass";
+import { useUsers } from "../../../contexts/UsersContext.jsx"
+import Home from "../../Home/Home.jsx";
 
 function LogIn() {
     // navigate to navigate anywhere in webpage
@@ -11,31 +13,42 @@ function LogIn() {
     const [passType, setPassType] = useState("password");
 
     // for the current login varification
-    const [user, setUser] = useState({email: "", password: ""});
+    // const [loginUser, setLoginUser] = useState({email: "", password: ""});
 
-    // storing user email pass to check wheather they are signed up or not!!
+    // the main source of indentifing wheather the loginUser is logdin or not..
+    const { loginUser, setLoginUser} = useUsers();
+
+    // storing loginUser email pass to check wheather they are signed up or not!!
     const handleChange = (e) => {
         const {id , value} = e.target;
-        setUser((prev) => ({...prev, [id]: value}));
+        setLoginUser((prev) => ({...prev, [id]: value}));
     }
 
     // checking wheather they are signedUp or not...?
+
     const handleVarificationOfUser = () => {
-        const existingData = localStorage.getItem('signUpUsers');
+        
+        let existingData = JSON.parse(localStorage.getItem("signUpUsers")) || [];
         let isLogin = false;
 
-        JSON.parse(existingData).find((Existinguser) => {
-            if(Existinguser.email == user.email){
-                console.log(Existinguser)
-                isLogin =  true;
+        for (let i = 0; i < existingData.length; i++) {
+            if (
+                existingData[i].email === loginUser.email &&
+                existingData[i].password === loginUser.password
+            ) {
+                isLogin = true;
+                localStorage.setItem("isLogin", JSON.stringify(true));
+                localStorage.setItem("currentLogInUser", JSON.stringify(existingData[i]));
+                break; // stop loop once match is found
             }
-            else{
-                isLogin = false;
-            }
-        })
-        isLogin ? navigate("/home") : isLogin;
+        }
 
-     }
+        if (isLogin) {
+            navigate("/home");
+        } else {
+            alert("Invalid email or password");
+        }
+    };
 
 
   return (
@@ -75,7 +88,7 @@ function LogIn() {
               onUpdate={handleChange}
               passType={passType}
               setPassType={setPassType}
-              value={user.password}/>
+              value={loginUser.password}/>
               </form>
             </div>
 
