@@ -94,7 +94,7 @@ function Home() {
           <div className="bg-white p-6 lg:p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-indigo-200 hover:-translate-y-1">
             <h3 className="text-gray-500 text-xs lg:text-sm font-semibold uppercase tracking-wide">Your Role</h3>
             <p className="text-2xl lg:text-3xl font-bold text-indigo-600 mt-3">
-              Administrator
+              Admin
             </p>
           </div>
 

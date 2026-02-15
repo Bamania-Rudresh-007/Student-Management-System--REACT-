@@ -1,10 +1,53 @@
-import React from "react";
+import {  useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import useStudentServices from "../../hooks/useCrudOperations.js";
 
 function UpdateStudent() {
+    const [updatedStudent , setUpdatedStudent] = useState({
+        studentId: "",
+        name: "",
+        email: "",
+        number: "",
+        rollNumber: "",
+        course: "",
+        address: "",
+    });
+
+    const navigate = useNavigate()
+
+    const { updateStudent } = useStudentServices()
+
+    // handles the changes of input elements and store in state
+    const handleChange = (e) => {
+        setUpdatedStudent(e.target.value)
+        console.log(e.target.value)
+    }
+
+    updateStudent(1001)
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
       
       <div className="w-full max-w-3xl bg-white shadow-2xl rounded-3xl p-8 md:p-12">
+
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className=" flex items-center gap-2 text-yellow-600 hover:text-yellow-800 font-medium transition cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+          Back
+        </button>
         
         {/* Title */}
         <div className="mb-8 text-center">
@@ -27,6 +70,7 @@ function UpdateStudent() {
             <input
               type="text"
               placeholder="Enter student ID"
+              onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
           </div>
@@ -39,6 +83,7 @@ function UpdateStudent() {
             <input
               type="text"
               defaultValue="John Doe"
+              onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
           </div>
@@ -51,6 +96,7 @@ function UpdateStudent() {
             <input
               type="email"
               defaultValue="john@example.com"
+              onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
           </div>
@@ -64,6 +110,7 @@ function UpdateStudent() {
               <input
                 type="text"
                 defaultValue="9876543210"
+                onChange={(e) => handleChange(e)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
               />
             </div>
@@ -75,6 +122,7 @@ function UpdateStudent() {
               <input
                 type="text"
                 defaultValue="101"
+                onChange={(e) => handleChange(e)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
               />
             </div>
@@ -87,6 +135,7 @@ function UpdateStudent() {
             </label>
             <select
               defaultValue="BCA"
+              onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             >
               <option>Select Course</option>
@@ -105,6 +154,7 @@ function UpdateStudent() {
             <textarea
               rows="3"
               defaultValue="123 Main Street, City"
+              onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             ></textarea>
           </div>

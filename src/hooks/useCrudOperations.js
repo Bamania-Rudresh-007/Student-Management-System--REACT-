@@ -2,7 +2,8 @@ import { useState } from "react";
 
 export default function useStudentServices() {
 
-    const [student , setStudent] = useState(() => {
+    // handles the storing and updating part of new students in local storage
+    const [students , setStudents] = useState(() => {
         try {
         const storedStudents = localStorage.getItem("students");
         return storedStudents ? JSON.parse(storedStudents) : [];            
@@ -12,23 +13,41 @@ export default function useStudentServices() {
         }
     });
 
+    // Unique id generator
+    const newStudentId = students.length + 1001
+
+    // For addStudent component...
     const addStudent = (currentStudent) => {
         try {
-            const updatedStudent = [...student, currentStudent];
-            setStudent(updatedStudent)
-            localStorage.setItem("students", JSON.stringify(student));
+            const updatedStudent = [...students, currentStudent];
+            localStorage.setItem("students", JSON.stringify(updatedStudent));
+            setStudents(updatedStudent)
         } catch (error) {
             console.error("Failed to store the current student data in local storage...", error);
             return [];
         }
     };
 
+    // Handles the logic for updating students data
+    const updateStudent = (id) => {
 
-    const updateStudent = () => {};
+        const updateStudent = students.filter((student) => {
+            return student.id == id;
+        })
 
-    const readStudents = () => {};
+        if(updateStudent.length > 0){
+            console.log(updateStudent);
+        }
+        else{
+            console.error("Student not present in the database...");
+        }
+
+
+
+
+    };
 
     const deleteStudent = () => {};
 
-    return { addStudent, updateStudent, readStudents, deleteStudent };
+    return { addStudent, updateStudent, deleteStudent, newStudentId, students };
 }
