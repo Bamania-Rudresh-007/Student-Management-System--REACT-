@@ -1,5 +1,5 @@
 import {  useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useStudentServices from "../../hooks/useCrudOperations.js";
 
 function UpdateStudent() {
@@ -14,16 +14,14 @@ function UpdateStudent() {
     });
 
     const navigate = useNavigate()
-
     const { updateStudent } = useStudentServices()
 
     // handles the changes of input elements and store in state
     const handleChange = (e) => {
-        setUpdatedStudent(e.target.value)
-        console.log(e.target.value)
+        const {id, value} = e.target;
+        setUpdatedStudent((prev) => ({...prev, [id]: value}));
     }
 
-    updateStudent(1001)
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
       
@@ -70,6 +68,7 @@ function UpdateStudent() {
             <input
               type="text"
               placeholder="Enter student ID"
+              id='studentId'
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
@@ -82,7 +81,8 @@ function UpdateStudent() {
             </label>
             <input
               type="text"
-              defaultValue="John Doe"
+              defaultValue="Bamania Rudresh Vinaychandra"
+              id='name'
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
@@ -95,7 +95,8 @@ function UpdateStudent() {
             </label>
             <input
               type="email"
-              defaultValue="john@example.com"
+              defaultValue="rudresh@example.com"
+              id='email'
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
@@ -109,7 +110,8 @@ function UpdateStudent() {
               </label>
               <input
                 type="text"
-                defaultValue="9876543210"
+                defaultValue="0123456789"
+                id='number'
                 onChange={(e) => handleChange(e)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
               />
@@ -122,6 +124,7 @@ function UpdateStudent() {
               <input
                 type="text"
                 defaultValue="101"
+                id='rollNumber'
                 onChange={(e) => handleChange(e)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
               />
@@ -134,8 +137,8 @@ function UpdateStudent() {
               Course
             </label>
             <select
-              defaultValue="BCA"
               onChange={(e) => handleChange(e)}
+              id='course'
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             >
               <option>Select Course</option>
@@ -154,6 +157,7 @@ function UpdateStudent() {
             <textarea
               rows="3"
               defaultValue="123 Main Street, City"
+              id='address'
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             ></textarea>
@@ -164,6 +168,10 @@ function UpdateStudent() {
             <button
               type="submit"
               className="flex-1 bg-yellow-500 text-white py-3 rounded-xl font-semibold hover:bg-yellow-600 transition shadow-md"
+              onClick={(e) => {
+                e.preventDefault()
+                updateStudent(updatedStudent.studentId, updatedStudent);
+              }}
             >
               Update Student
             </button>
