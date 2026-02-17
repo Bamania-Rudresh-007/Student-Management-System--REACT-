@@ -59,7 +59,7 @@ function ViewStudentCards() {
           {students.map((student) => (
             <div
               key={student.id}
-              className="bg-white shadow-lg rounded-2xl p-6 cursor-pointer hover:shadow-2xl transition flex flex-col h-full"
+              className="bg-white shadow-lg rounded-2xl p-6  hover:shadow-2xl transition flex flex-col h-fit"
             >
               {/* Minimal Info */}
               <div className="flex items-center justify-between mb-4">
@@ -91,7 +91,11 @@ function ViewStudentCards() {
               <div className="flex-grow"></div>
               
               <Link to={"/viewStudentDetails"}>
-                <button className="w-full bg-indigo-600 text-white py-2 rounded-xl font-semibold hover:bg-indigo-700 transition">
+                <button className="w-full bg-indigo-600 text-white py-2 rounded-xl font-semibold hover:bg-indigo-700 transition"
+                onClick={() => {
+                    localStorage.setItem("CurrentViewDetails", JSON.stringify(student));
+                }}
+                >
                   View Details
                 </button>
               </Link>

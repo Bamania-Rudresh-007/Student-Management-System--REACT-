@@ -4,7 +4,7 @@ import useStudentServices from "../../hooks/useCrudOperations.js";
 
 function UpdateStudent() {
     const [updatedStudent , setUpdatedStudent] = useState({
-        studentId: "",
+        id: "",
         name: "",
         email: "",
         number: "",
@@ -68,7 +68,7 @@ function UpdateStudent() {
             <input
               type="text"
               placeholder="Enter student ID"
-              id='studentId'
+              id='id'
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
@@ -169,8 +169,15 @@ function UpdateStudent() {
               type="submit"
               className="flex-1 bg-yellow-500 text-white py-3 rounded-xl font-semibold hover:bg-yellow-600 transition shadow-md"
               onClick={(e) => {
-                e.preventDefault()
-                updateStudent(updatedStudent.studentId, updatedStudent);
+                if(updatedStudent.id != "" && updatedStudent.name != "" && updatedStudent.email != "" && updatedStudent.number != "" && updatedStudent.rollNumber != "" && updatedStudent.course != "" && updatedStudent.address != ""){
+                    e.preventDefault()
+                    console.log(updatedStudent)
+                    updateStudent(updatedStudent);
+                }
+            else{
+                alert("Please Fill the Form Correctly!!!");
+            }
+
               }}
             >
               Update Student

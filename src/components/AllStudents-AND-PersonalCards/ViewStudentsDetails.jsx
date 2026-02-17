@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 
 function ViewStudentDetails() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    
+    const currentStudent = JSON.parse(localStorage.getItem("CurrentViewDetails"));
+
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
 
@@ -44,32 +48,32 @@ function ViewStudentDetails() {
           {/* Name */}
           <div>
             <h4 className="text-gray-600 font-medium mb-1">Full Name</h4>
-            <p className="text-gray-800 font-semibold">John Doe</p>
+            <p className="text-gray-800 font-semibold">{currentStudent.name}</p>
           </div>
 
           {/* Roll Number */}
           <div>
             <h4 className="text-gray-600 font-medium mb-1">Roll Number</h4>
-            <p className="text-gray-800 font-semibold">101</p>
+            <p className="text-gray-800 font-semibold">{currentStudent.rollNumber}</p>
           </div>
 
           {/* Email */}
           <div>
             <h4 className="text-gray-600 font-medium mb-1">Email</h4>
-            <p className="text-gray-800 font-semibold">john@example.com</p>
+            <p className="text-gray-800 font-semibold">{currentStudent.email}</p>
           </div>
 
           {/* Phone */}
           <div>
             <h4 className="text-gray-600 font-medium mb-1">Phone</h4>
-            <p className="text-gray-800 font-semibold">9876543210</p>
+            <p className="text-gray-800 font-semibold">{currentStudent.number}</p>
           </div>
 
           {/* Course */}
           <div>
             <h4 className="text-gray-600 font-medium mb-1">Course</h4>
             <span className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-medium">
-              BCA
+              {currentStudent.course}
             </span>
           </div>
 
@@ -85,7 +89,7 @@ function ViewStudentDetails() {
           <div className="md:col-span-2">
             <h4 className="text-gray-600 font-medium mb-1">Address</h4>
             <p className="text-gray-800 font-semibold">
-              123 Main Street, City, State, ZIP Code
+              {currentStudent.address}
             </p>
           </div>
 

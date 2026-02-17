@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useState } from "react";
 
 export default function useStudentServices() {
 
@@ -29,12 +29,9 @@ export default function useStudentServices() {
     };
 
     // Handles the logic for updating students data
-    const updateStudent = (id , updatedStudent) => {
-
-        console.log(students.filter(item => item.id == id));
-        setStudents((prev) => prev.map((item) => item.id == id ? updatedStudent : item))
+    const updateStudent = (updatedStudent) => {
+        setStudents((prev) => prev.map(item => item.id == updatedStudent.id ? updatedStudent: item))
         localStorage.setItem("students", JSON.stringify(students));
-
     };
 
     const deleteStudent = () => {};
