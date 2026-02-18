@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
-
+import useStudentServices from "../../hooks/useCrudOperations";
+import { useState } from "react";
 
 function DeleteStudent() {
     const navigate = useNavigate()
+    const { deleteStudent } = useStudentServices()
+    const [deletedStudent , setDeletedStudent] = useState(null);
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
       
@@ -52,6 +56,7 @@ function DeleteStudent() {
               type="text"
               placeholder="Enter student ID to delete"
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+              onChange={(e) => setDeletedStudent(e.target.value)}
             />
           </div>
 
@@ -72,6 +77,11 @@ function DeleteStudent() {
             <button
               type="submit"
               className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition shadow-md"
+              onClick={(e) => {
+                e.preventDefault();
+                deleteStudent(deletedStudent)
+                console.log(deletedStudent)
+              }}
             >
               Delete Student
             </button>
