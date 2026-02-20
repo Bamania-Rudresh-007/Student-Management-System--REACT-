@@ -53,7 +53,7 @@ function Home() {
 
           {/* Logout button on mobile - inside card */}
           <button 
-            className="lg:hidden bg-white text-indigo-700 px-4 py-2 rounded-xl font-bold hover:bg-indigo-50 active:scale-95 transition-all shadow-lg text-sm whitespace-nowrap flex-shrink-0"
+            className="lg:hidden bg-white text-indigo-700 px-4 py-2 rounded-xl font-bold hover:bg-indigo-50 active:scale-95 transition-all shadow-lg text-sm whitespace-nowrap flex-shrink-0 cursor-pointer"
             onClick={handleLogout}
           >
             Logout

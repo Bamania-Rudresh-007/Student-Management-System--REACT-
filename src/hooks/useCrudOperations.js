@@ -11,7 +11,6 @@ export default function useStudentServices() {
             console.error("Failed to fetch students data from local Storage...", error);
             return [];
         }
-        
     });
 
     useEffect(() => {
@@ -19,13 +18,23 @@ export default function useStudentServices() {
     }, [students])
 
     // Unique id generator
-    const newStudentId = students.length + 1001;
+    const UniqueIdGenerator = () => {
+        let newStudentId;
+        const lastUpdatedId = JSON.parse(localStorage.getItem("lastUpdatedId"))
+        if(lastUpdatedId){
+            newStudentId = lastUpdatedId + 1;
+        }
+        else{
+            newStudentId = students.length + 1001;
+        }
+
+        return newStudentId;
+    }
 
     // For addStudent component...
     const addStudent = (currentStudent) => {
         try {
             const updatedStudent = [...students, currentStudent];
-            // localStorage.setItem("students", JSON.stringify(updatedStudent));
             setStudents(updatedStudent)
         } catch (error) {
             console.error("Failed to store the current student data in local storage...", error);
@@ -36,17 +45,24 @@ export default function useStudentServices() {
     // Handles the logic for updating students data
     const updateStudent = (updatedStudent) => {
         setStudents((prev) => prev.map(item => item.id == updatedStudent.id ? updatedStudent: item))
-        // localStorage.setItem("students", JSON.stringify(students));
     };
 
-    const deleteStudent = (id) => {
-        // const removeStudent = students.filter((student) => student.id != id);
-        console.log(id);
-        console.log(students)
-        id ? setStudents((prev) => prev.filter((item) => item.id != id)) : alert("Please give the valid Student ID");
-        console.log(students)
+    const deleteStudent = (data) => {
+        if(students.length < 0){
+            return false;
+        }
+        else{
+            if(data.confirm.toLowerCase() == "delete"){
+            data.id ? setStudents((prev) => prev.filter((item) => item.id != data.id)) : alert("Please give the valid Student ID");
+            console.log(data)
+            }
+            else{
+                alert("Confim through writing delete in below given form...");
+            }
+        }
+
     };
     
 
-    return { addStudent, updateStudent, deleteStudent, newStudentId, students };
+    return { addStudent, updateStudent, deleteStudent, UniqueIdGenerator, students };
 }

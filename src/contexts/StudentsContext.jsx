@@ -14,11 +14,14 @@ export function StudentsProvider({children}){
     //     }
     // })
 
+    const [deletedStudent , setDeletedStudent] = useState({id: "", confirm: ""});
+
 
 
 
     const values = {
-        name: "Hey"
+        deletedStudent,
+        setDeletedStudent,
     }
     
     return <StudentsContext.Provider value={values}>{children}</StudentsContext.Provider>

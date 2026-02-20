@@ -1,10 +1,20 @@
 import { useNavigate } from "react-router-dom";
+import { useStudents } from "../../contexts/StudentsContext.jsx"; 
+
 
 function ViewStudentDetails() {
     const navigate = useNavigate();
+    const { deletedStudent, setDeletedStudent } = useStudents()
     
     const currentStudent = JSON.parse(localStorage.getItem("CurrentViewDetails"));
+    // console.log(currentStudent)
 
+
+    const handleDeleteBtn = () => {
+        navigate("/deleteStudent")
+        console.log(currentStudent)
+        setDeletedStudent({...deletedStudent, id: currentStudent.id})
+    }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
@@ -57,6 +67,12 @@ function ViewStudentDetails() {
             <p className="text-gray-800 font-semibold">{currentStudent.rollNumber}</p>
           </div>
 
+          {/* Unique ID */}
+          <div>
+            <h4 className="text-gray-600 font-medium mb-1">Student ID</h4>
+            <p className="text-gray-800 font-semibold">{currentStudent.id}</p>
+          </div>
+
           {/* Email */}
           <div>
             <h4 className="text-gray-600 font-medium mb-1">Email</h4>
@@ -100,7 +116,9 @@ function ViewStudentDetails() {
           <button className="flex-1 bg-yellow-500 text-white py-3 rounded-xl font-semibold hover:bg-yellow-600 transition shadow-md">
             Edit Student
           </button>
-          <button className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition shadow-md">
+          <button className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition shadow-md"
+          onClick={handleDeleteBtn}
+          >
             Delete Student
           </button>
         </div>

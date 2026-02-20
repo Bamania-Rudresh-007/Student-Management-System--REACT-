@@ -4,7 +4,7 @@ import useStudentServices from "../../hooks/useCrudOperations.js";
 
 function AddStudent() {
 
-    const { addStudent, newStudentId } = useStudentServices();
+    const { addStudent, UniqueIdGenerator } = useStudentServices();
     const navigate = useNavigate();
 
     const [currentStudent, setCurrentStudent] = useState({
@@ -16,9 +16,30 @@ function AddStudent() {
         address: "",
     })
 
+    const uniqueID = UniqueIdGenerator();
+
     const handleAddStudentChanges = (e) => {
         const {id , value} = e.target;
-        setCurrentStudent({...currentStudent, [id]: value, id: newStudentId});
+        setCurrentStudent({...currentStudent, [id]: value});
+    }
+
+    const handleAddStudentBtn = () => {
+        if(Object.values(currentStudent).every(val => val !== "")){
+            const studentDataWithId = {...currentStudent, id: uniqueID}
+            localStorage.setItem("lastUpdatedId", JSON.stringify(uniqueID));
+            addStudent(studentDataWithId)
+            setCurrentStudent({
+                name: "",
+                email: "",
+                number: "",
+                rollNumber: "",
+                course: "",
+                address: "",
+            })
+        }
+        else{
+            alert("Please first fill the following details...")
+        }
     }
 
   return (
@@ -144,10 +165,14 @@ function AddStudent() {
               }}
             >
               <option>Select Course</option>
-              <option>BCA</option>
-              <option>BBA</option>
-              <option>B.Tech</option>
-              <option>MCA</option>
+              <option>Diplomma in Computer Engineering</option>
+              <option>Diplomma in Mechanical Engineering</option>
+              <option>Diplomma in Information Technology</option>
+              <option>Diplomma in Electrical Engineering</option>
+              <option>12th</option>
+              <option>11th</option>
+              <option>10th</option>
+              <option>9th</option>
             </select>
           </div>
 
@@ -173,23 +198,7 @@ function AddStudent() {
             <button
               type="submit"
               className="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition shadow-md cursor-pointer"
-              onClick={() => {
-                if(currentStudent.name != "" && currentStudent.email != "" && currentStudent.number != "" && currentStudent.rollNumber != "" && currentStudent.course != "" && currentStudent.address != ""){
-                    addStudent(currentStudent)
-                    console.log(currentStudent)
-                    setCurrentStudent({
-                        name: "",
-                        email: "",
-                        number: "",
-                        rollNumber: "",
-                        course: "",
-                        address: "",
-                    })
-                }
-                else{
-                    alert("Please first fill the following details...")
-                }
-              }}
+              onClick={handleAddStudentBtn}
             >
               Add Student
             </button>

@@ -1,11 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import useStudentServices from "../../hooks/useCrudOperations";
-import { useState } from "react";
+import { useStudents } from "../../contexts/StudentsContext";
+import { useEffect } from "react";
 
 function DeleteStudent() {
     const navigate = useNavigate()
     const { deleteStudent } = useStudentServices()
-    const [deletedStudent , setDeletedStudent] = useState(null);
+    const { deletedStudent , setDeletedStudent } = useStudents()
+    // const [deletedStudent , setDeletedStudent] = useState({id: "", confirm: ""});
+
+    useEffect(() => {
+      console.log(deletedStudent)
+    }, [deletedStudent])
+    
+
+    const handlechange = (e) => {
+        const {id , value} = e.target;
+        setDeletedStudent({...deletedStudent ,[id]: value});
+    }
+
+    const handleForm = (e) => {
+        e.preventDefault()  
+        deleteStudent(deletedStudent)
+        setDeletedStudent({id: "", confirm: ""});
+    }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
@@ -45,7 +63,7 @@ function DeleteStudent() {
         </div>
 
         {/* Form */}
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleForm}>
 
           {/* Student ID */}
           <div>
@@ -55,8 +73,10 @@ function DeleteStudent() {
             <input
               type="text"
               placeholder="Enter student ID to delete"
+              id="id"
+              value={deletedStudent.id}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
-              onChange={(e) => setDeletedStudent(e.target.value)}
+              onChange={handlechange}
             />
           </div>
 
@@ -68,7 +88,10 @@ function DeleteStudent() {
             <input
               type="text"
               placeholder="Type DELETE"
+              id="confirm"
+              value={deletedStudent.confirm}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+              onChange={handlechange}
             />
           </div>
 
@@ -77,11 +100,6 @@ function DeleteStudent() {
             <button
               type="submit"
               className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition shadow-md"
-              onClick={(e) => {
-                e.preventDefault();
-                deleteStudent(deletedStudent)
-                console.log(deletedStudent)
-              }}
             >
               Delete Student
             </button>
