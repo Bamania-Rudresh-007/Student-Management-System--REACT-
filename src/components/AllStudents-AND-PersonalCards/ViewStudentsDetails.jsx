@@ -1,14 +1,42 @@
 import { useNavigate } from "react-router-dom";
 import { useStudents } from "../../contexts/StudentsContext.jsx"; 
+import { useState, useRef, useEffect } from "react";
 
 
 function ViewStudentDetails() {
     const navigate = useNavigate();
     const { deletedStudent, setDeletedStudent } = useStudents()
+    const [showFieldMenu, setShowFieldMenu] = useState(false);
+    const menuRef = useRef(null);
     
     const currentStudent = JSON.parse(localStorage.getItem("CurrentViewDetails"));
-    // console.log(currentStudent)
 
+    const fields = [
+        { label: "Full Name", id: "name" },
+        { label: "Email Address", id: "email" },
+        { label: "Phone Number", id: "number" },
+        { label: "Roll Number", id: "rollNumber" },
+        { label: "Course", id: "course" },
+        { label: "Address", id: "address" },
+    ];
+
+    // Close dropdown if user clicks outside
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
+                setShowFieldMenu(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const handleFieldSelect = (fieldId) => {
+        localStorage.setItem("CurrentViewDetails", JSON.stringify(currentStudent));
+        localStorage.setItem("EditFocusField", JSON.stringify(fieldId));
+        localStorage.setItem("IsDirectedFromViewDetailsPage", JSON.stringify(true));
+        navigate("/updateStudent");
+    };
 
     const handleDeleteBtn = () => {
         navigate("/deleteStudent")
@@ -113,9 +141,49 @@ function ViewStudentDetails() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mt-6">
-          <button className="flex-1 bg-yellow-500 text-white py-3 rounded-xl font-semibold hover:bg-yellow-600 transition shadow-md">
-            Edit Student
-          </button>
+
+          {/* Edit Student Button with Click Dropdown */}
+          <div className="flex-1 relative" ref={menuRef}>
+
+            {/* Dropdown Field Menu - appears above button */}
+            {showFieldMenu && (
+              <div className="absolute bottom-full mb-2 left-0 w-full bg-white border border-gray-200 rounded-xl shadow-xl z-10 overflow-hidden">
+                <p className="text-xs text-gray-400 font-medium px-4 pt-3 pb-1 uppercase tracking-wide">
+                  Select field to edit
+                </p>
+                {fields.map((field) => (
+                  <button
+                    key={field.id}
+                    onClick={() => handleFieldSelect(field.id)}
+                    className="w-full text-left px-4 py-2.5 text-gray-700 hover:bg-yellow-50 hover:text-yellow-700 font-medium transition text-sm flex items-center gap-2"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-yellow-400 inline-block"></span>
+                    {field.label}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <button
+              onClick={() => setShowFieldMenu((prev) => !prev)}
+              className="w-full bg-yellow-500 text-white py-3 rounded-xl font-semibold hover:bg-yellow-600 transition shadow-md flex items-center justify-center gap-2"
+            >
+              Edit Student
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`h-4 w-4 transition-transform duration-200 ${showFieldMenu ? "rotate-180" : ""}`}
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+
           <button className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition shadow-md"
           onClick={handleDeleteBtn}
           >

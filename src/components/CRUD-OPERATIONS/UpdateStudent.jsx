@@ -16,12 +16,53 @@ function UpdateStudent() {
     const navigate = useNavigate()
     const { updateStudent } = useStudentServices()
 
+    useEffect(() => {
+        setUpdatedStudent({
+        id: "",
+        name: "",
+        email: "",
+        number: "",
+        rollNumber: "",
+        course: "",
+        address: "",
+    })
+        const isDirectedFromViewDetails = JSON.parse(localStorage.getItem("IsDirectedFromViewDetailsPage"));
+        if(isDirectedFromViewDetails){
+            handleAutoFocus();
+            localStorage.setItem("IsDirectedFromViewDetailsPage", JSON.stringify(false));
+        }
+    } , [])
+
+    // useEffect(() => {
+    //   console.log(updatedStudent)
+    
+    // }, [updatedStudent])
+
     // handles the changes of input elements and store in state
     const handleChange = (e) => {
         const {id, value} = e.target;
         setUpdatedStudent((prev) => ({...prev, [id]: value}));
     }
 
+
+    const handleAutoFocus = () => {
+
+        const rawNotMe = localStorage.getItem("EditFocusField");
+        if (!rawNotMe) return;
+
+        const notMe = JSON.parse(rawNotMe); 
+        const currentStudent = JSON.parse(localStorage.getItem("CurrentViewDetails"));
+
+        // This will now work correctly because notMe matches the key exactly
+        const { [notMe]: removed, ...rest } = currentStudent;
+
+        setUpdatedStudent(rest);
+        console.log("Key removed:", notMe, "Remaining:", rest);
+
+    };
+
+
+    
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
       
@@ -69,6 +110,7 @@ function UpdateStudent() {
               type="text"
               placeholder="Enter student ID"
               id='id'
+              value={updatedStudent.id}
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
@@ -81,8 +123,8 @@ function UpdateStudent() {
             </label>
             <input
               type="text"
-              defaultValue="Bamania Rudresh Vinaychandra"
               id='name'
+              value={updatedStudent.name ?? ""}
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
@@ -95,8 +137,8 @@ function UpdateStudent() {
             </label>
             <input
               type="email"
-              defaultValue="rudresh@example.com"
               id='email'
+              value={updatedStudent.email ?? ""}
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             />
@@ -110,8 +152,8 @@ function UpdateStudent() {
               </label>
               <input
                 type="text"
-                defaultValue="0123456789"
                 id='number'
+                value={updatedStudent.number ?? ""}
                 onChange={(e) => handleChange(e)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
               />
@@ -123,8 +165,8 @@ function UpdateStudent() {
               </label>
               <input
                 type="text"
-                defaultValue="101"
                 id='rollNumber'
+                value={updatedStudent.rollNumber ?? ""}
                 onChange={(e) => handleChange(e)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
               />
@@ -139,13 +181,18 @@ function UpdateStudent() {
             <select
               onChange={(e) => handleChange(e)}
               id='course'
+              value={updatedStudent.course ?? ""}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             >
               <option>Select Course</option>
-              <option>BCA</option>
-              <option>BBA</option>
-              <option>B.Tech</option>
-              <option>MCA</option>
+              <option>Diplomma in Computer Engineering</option>
+              <option>Diplomma in Mechanical Engineering</option>
+              <option>Diplomma in Information Technology</option>
+              <option>Diplomma in Electrical Engineering</option>
+              <option>12th</option>
+              <option>11th</option>
+              <option>10th</option>
+              <option>9th</option>
             </select>
           </div>
 
@@ -156,8 +203,8 @@ function UpdateStudent() {
             </label>
             <textarea
               rows="3"
-              defaultValue="123 Main Street, City"
               id='address'
+              value={updatedStudent.address ?? ""}
               onChange={(e) => handleChange(e)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             ></textarea>
@@ -186,6 +233,7 @@ function UpdateStudent() {
             <button
               type="button"
               className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition"
+              onClick={() => navigate(-1)}
             >
               Cancel
             </button>

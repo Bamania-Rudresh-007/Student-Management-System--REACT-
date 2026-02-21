@@ -107,6 +107,7 @@ function DeleteStudent() {
             <button
               type="button"
               className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition"
+              onClick={() => navigate(-1)}
             >
               Cancel
             </button>
