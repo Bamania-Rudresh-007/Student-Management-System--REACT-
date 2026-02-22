@@ -1,10 +1,27 @@
-import React from "react";
+// import React from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useStudentServices from "../../hooks/useCrudOperations.js";
 
 function ViewStudentCards() {
-  const { students } = useStudentServices();
+  const { students, setStudents } = useStudentServices();
+  const [filterStudents , setFilterStudents] = useState([]);
   const navigate = useNavigate();
+
+    useEffect(() => {
+        setFilterStudents(students);
+    }, [])    
+
+    const handleFilter = (e) => {
+        const selectedCourse = e.target.value;
+        let filteredStudent = students.filter((student) => student.course == selectedCourse)
+
+        if(e.target.value == "All"){
+           setFilterStudents(students) 
+           return;
+        }
+        setFilterStudents(filteredStudent);
+    }   
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 md:p-10">
@@ -27,20 +44,24 @@ function ViewStudentCards() {
         {/* Filter */}
         <div className="flex gap-3 items-center">
           <label className="text-gray-500 font-medium text-sm">Filter by Course:</label>
-          <select className="px-4 py-2 rounded-xl border border-gray-200 bg-white text-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition">
+          <select className="px-4 py-2 rounded-xl border border-gray-200 bg-white text-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition"
+          onChange={handleFilter}
+          >
             <option>All</option>
-            <option>BCA</option>
-            <option>BBA</option>
-            <option>B.Tech</option>
-            <option>MCA</option>
+            <option>Diploma in Computer Engineering</option>
+            <option>Diploma in Information Technology</option>
+            <option>Diploma in Mechanical Engineering</option>
+            <option>Diploma in Electrical Engineering</option>
+            <option>Diploma in Civil Engineering</option>
+            <option>Diploma in Electronics & Communication</option>
           </select>
         </div>
       </div>
 
       {/* Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-        {students && students.length > 0 ? (
-          students.map((student) => (
+        {filterStudents && filterStudents.length > 0 ? (
+          filterStudents.map((student) => (
             <div
               key={student.id}
               className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col hover:shadow-md hover:border-indigo-100 transition"

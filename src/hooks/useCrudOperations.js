@@ -64,5 +64,5 @@ export default function useStudentServices() {
     };
     
 
-    return { addStudent, updateStudent, deleteStudent, UniqueIdGenerator, students };
+    return { addStudent, updateStudent, deleteStudent, UniqueIdGenerator, students, setStudents };
 }

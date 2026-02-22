@@ -164,15 +164,13 @@ function AddStudent() {
                 handleAddStudentChanges(e)
               }}
             >
-              <option>Select Course</option>
-              <option>Diplomma in Computer Engineering</option>
-              <option>Diplomma in Mechanical Engineering</option>
-              <option>Diplomma in Information Technology</option>
-              <option>Diplomma in Electrical Engineering</option>
-              <option>12th</option>
-              <option>11th</option>
-              <option>10th</option>
-              <option>9th</option>
+            <option>All</option>
+            <option>Diploma in Computer Engineering</option>
+            <option>Diploma in Information Technology</option>
+            <option>Diploma in Mechanical Engineering</option>
+            <option>Diploma in Electrical Engineering</option>
+            <option>Diploma in Civil Engineering</option>
+            <option>Diploma in Electronics & Communication</option>
             </select>
           </div>
 

@@ -184,15 +184,13 @@ function UpdateStudent() {
               value={updatedStudent.course ?? ""}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
             >
-              <option>Select Course</option>
-              <option>Diplomma in Computer Engineering</option>
-              <option>Diplomma in Mechanical Engineering</option>
-              <option>Diplomma in Information Technology</option>
-              <option>Diplomma in Electrical Engineering</option>
-              <option>12th</option>
-              <option>11th</option>
-              <option>10th</option>
-              <option>9th</option>
+            <option>All</option>   
+            <option>Diploma in Computer Engineering</option>
+            <option>Diploma in Information Technology</option>
+            <option>Diploma in Mechanical Engineering</option>
+            <option>Diploma in Electrical Engineering</option>
+            <option>Diploma in Civil Engineering</option>
+            <option>Diploma in Electronics & Communication</option>
             </select>
           </div>
 
