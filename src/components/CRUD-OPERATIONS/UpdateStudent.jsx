@@ -33,11 +33,6 @@ function UpdateStudent() {
         }
     } , [])
 
-    // useEffect(() => {
-    //   console.log(updatedStudent)
-    
-    // }, [updatedStudent])
-
     // handles the changes of input elements and store in state
     const handleChange = (e) => {
         const {id, value} = e.target;
@@ -90,7 +85,7 @@ function UpdateStudent() {
         
         {/* Title */}
         <div className="mb-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-600">
+          <h2 className="text-3xl md:text-4xl font-bold text-yellow-600 pt-5">
             Update Student
           </h2>
           <p className="text-gray-500 mt-2">
@@ -218,6 +213,15 @@ function UpdateStudent() {
                     e.preventDefault()
                     console.log(updatedStudent)
                     updateStudent(updatedStudent);
+                    setUpdatedStudent({
+                        id: "",
+                        name: "",
+                        email: "",
+                        number: "",
+                        rollNumber: "",
+                        course: "",
+                        address: "",
+                    })
                 }
             else{
                 alert("Please Fill the Form Correctly!!!");

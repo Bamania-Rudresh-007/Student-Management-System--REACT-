@@ -7,12 +7,6 @@ function DeleteStudent() {
     const navigate = useNavigate()
     const { deleteStudent } = useStudentServices()
     const { deletedStudent , setDeletedStudent } = useStudents()
-    // const [deletedStudent , setDeletedStudent] = useState({id: "", confirm: ""});
-
-    useEffect(() => {
-      console.log(deletedStudent)
-    }, [deletedStudent])
-    
 
     const handlechange = (e) => {
         const {id , value} = e.target;

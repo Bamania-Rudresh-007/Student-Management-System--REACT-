@@ -40,22 +40,23 @@ function ViewStudentCards() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <h2 className="text-3xl font-bold text-gray-800">Student Directory</h2>
-
-        {/* Filter */}
-        <div className="flex gap-3 items-center">
-          <label className="text-gray-500 font-medium text-sm">Filter by Course:</label>
-          <select className="px-4 py-2 rounded-xl border border-gray-200 bg-white text-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition"
-          onChange={handleFilter}
-          >
-            <option>All</option>
-            <option>Diploma in Computer Engineering</option>
-            <option>Diploma in Information Technology</option>
-            <option>Diploma in Mechanical Engineering</option>
-            <option>Diploma in Electrical Engineering</option>
-            <option>Diploma in Civil Engineering</option>
-            <option>Diploma in Electronics & Communication</option>
-          </select>
-        </div>
+        
+    {/* Filter */}
+    <div className="flex flex-col gap-1 w-full md:w-auto">
+    <label className="text-gray-500 font-medium text-sm">Filter by Course:</label>
+    <select
+        className="w-full md:w-auto px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition"
+        onChange={handleFilter}
+    >
+        <option>All</option>
+        <option>Diploma in Computer Engineering</option>
+        <option>Diploma in Information Technology</option>
+        <option>Diploma in Mechanical Engineering</option>
+        <option>Diploma in Electrical Engineering</option>
+        <option>Diploma in Civil Engineering</option>
+        <option>Diploma in Electronics & Communication</option>
+    </select>
+    </div>
       </div>
 
       {/* Cards Grid */}
