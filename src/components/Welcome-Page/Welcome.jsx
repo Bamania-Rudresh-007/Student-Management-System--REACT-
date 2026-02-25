@@ -7,7 +7,7 @@ import ContactSection from "./ContactSection.jsx"
 
 const floatingCards = [
   { icon: "👤", label: "Students", value: "2,400+", color: "bg-indigo-100 text-indigo-700 border-indigo-200" },
-  { icon: "📚", label: "Courses", value: "12", color: "bg-yellow-100 text-yellow-700 border-yellow-200" },
+  { icon: "📚", label: "Courses", value: "6", color: "bg-yellow-100 text-yellow-700 border-yellow-200" },
   { icon: "✅", label: "Active", value: "98%", color: "bg-green-100 text-green-700 border-green-200" },
 ];
 
