@@ -16,6 +16,8 @@ function AddStudent() {
         address: "",
     })
 
+    const isDark = JSON.parse(localStorage.getItem("Theme")) === "Dark Mode";
+
     const uniqueID = UniqueIdGenerator();
 
     const handleAddStudentChanges = (e) => {
@@ -43,14 +45,14 @@ function AddStudent() {
     }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
+    <div className={`min-h-screen flex items-center justify-center px-4 py-10 transition-colors duration-300 ${isDark ? "bg-gray-900" : "bg-gray-100"}`}>
       
-      <div className="w-full max-w-3xl bg-white shadow-2xl rounded-3xl p-8 md:p-12 relative">
+      <div className={`w-full max-w-3xl shadow-2xl rounded-3xl p-8 md:p-12 relative transition-colors duration-300 ${isDark ? "bg-gray-800" : "bg-white"}`}>
         
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="absolute top-6 left-6 flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium transition cursor-pointer"
+          className="absolute top-6 left-6 flex items-center gap-2 text-indigo-500 hover:text-indigo-400 font-medium transition cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -69,22 +71,20 @@ function AddStudent() {
 
         {/* Title */}
         <div className="mb-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-indigo-600  pt-5">
+          <h2 className="text-3xl md:text-4xl font-bold text-indigo-500 pt-5">
             Add New Student
           </h2>
-          <p className="text-gray-500 mt-2">
+          <p className={`mt-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
             Fill in the details below to register a student.
           </p>
         </div>
 
         {/* Form */}
-        <form className="space-y-6" onSubmit={(e) => {
-            e.preventDefault()
-        }}>
+        <form className="space-y-6" onSubmit={(e) => { e.preventDefault() }}>
 
           {/* Full Name */}
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className={`block font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
               Full Name
             </label>
             <input
@@ -92,34 +92,30 @@ function AddStudent() {
               id="name"
               placeholder="Enter full name"
               value={currentStudent.name}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-              onChange={(e) => {
-                handleAddStudentChanges(e)
-              }}
+              className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${isDark ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-gray-900"}`}
+              onChange={(e) => { handleAddStudentChanges(e) }}
             />
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className={`block font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
               Email Address
             </label>
             <input
               type="email"
               placeholder="Enter email"
               id="email"
-            value={currentStudent.email}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-              onChange={(e) => {
-                handleAddStudentChanges(e)
-              }}
+              value={currentStudent.email}
+              className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${isDark ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-gray-900"}`}
+              onChange={(e) => { handleAddStudentChanges(e) }}
             />
           </div>
 
           {/* Phone + Roll No */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-gray-700 font-medium mb-2">
+              <label className={`block font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
                 Phone Number
               </label>
               <input
@@ -127,15 +123,13 @@ function AddStudent() {
                 id="number"
                 placeholder="Enter phone number"
                 value={currentStudent.number}
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                onChange={(e) => {
-                    handleAddStudentChanges(e)
-                }}
+                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${isDark ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-gray-900"}`}
+                onChange={(e) => { handleAddStudentChanges(e) }}
               />
             </div>
 
             <div>
-              <label className="block text-gray-700 font-medium mb-2">
+              <label className={`block font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
                 Roll Number
               </label>
               <input
@@ -143,40 +137,36 @@ function AddStudent() {
                 id="rollNumber"
                 placeholder="Enter roll number"
                 value={currentStudent.rollNumber}
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                onChange={(e) => {
-                    handleAddStudentChanges(e)
-                }}
+                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${isDark ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-gray-900"}`}
+                onChange={(e) => { handleAddStudentChanges(e) }}
               />
             </div>
           </div>
 
           {/* Course */}
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className={`block font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
               Course
             </label>
             <select
-            id="course"
-            value={currentStudent.course}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-              onChange={(e) => {
-                handleAddStudentChanges(e)
-              }}
+              id="course"
+              value={currentStudent.course}
+              className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${isDark ? "bg-gray-700 border-gray-600 text-white" : "bg-white border-gray-300 text-gray-900"}`}
+              onChange={(e) => { handleAddStudentChanges(e) }}
             >
-            <option>All</option>
-            <option>Diploma in Computer Engineering</option>
-            <option>Diploma in Information Technology</option>
-            <option>Diploma in Mechanical Engineering</option>
-            <option>Diploma in Electrical Engineering</option>
-            <option>Diploma in Civil Engineering</option>
-            <option>Diploma in Electronics & Communication</option>
+              <option>All</option>
+              <option>Diploma in Computer Engineering</option>
+              <option>Diploma in Information Technology</option>
+              <option>Diploma in Mechanical Engineering</option>
+              <option>Diploma in Electrical Engineering</option>
+              <option>Diploma in Civil Engineering</option>
+              <option>Diploma in Electronics & Communication</option>
             </select>
           </div>
 
           {/* Address */}
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className={`block font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
               Address
             </label>
             <textarea
@@ -184,10 +174,8 @@ function AddStudent() {
               id="address"
               placeholder="Enter address"
               value={currentStudent.address}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-              onChange={(e) => {
-                handleAddStudentChanges(e)
-              }}
+              className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${isDark ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-gray-900"}`}
+              onChange={(e) => { handleAddStudentChanges(e) }}
             ></textarea>
           </div>
 
@@ -213,7 +201,7 @@ function AddStudent() {
                     address: "",
                 })
               }}
-              className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition cursor-pointer"
+              className={`flex-1 py-3 rounded-xl font-semibold transition cursor-pointer ${isDark ? "bg-gray-600 text-gray-200 hover:bg-gray-500" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
             >
               Reset
             </button>

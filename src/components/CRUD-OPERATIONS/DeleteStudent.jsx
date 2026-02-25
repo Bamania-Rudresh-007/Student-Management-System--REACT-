@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import useStudentServices from "../../hooks/useCrudOperations";
 import { useStudents } from "../../contexts/StudentsContext";
-import { useEffect } from "react";
 
 function DeleteStudent() {
     const navigate = useNavigate()
     const { deleteStudent } = useStudentServices()
     const { deletedStudent , setDeletedStudent } = useStudents()
+
+    const isDark = JSON.parse(localStorage.getItem("Theme")) === "Dark Mode";
 
     const handlechange = (e) => {
         const {id , value} = e.target;
@@ -19,15 +20,17 @@ function DeleteStudent() {
         setDeletedStudent({id: "", confirm: ""});
     }
 
+    const inputClass = `w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition ${isDark ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-gray-900"}`;
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
+    <div className={`min-h-screen flex items-center justify-center px-4 py-10 transition-colors duration-300 ${isDark ? "bg-gray-900" : "bg-gray-100"}`}>
       
-      <div className="w-full max-w-xl bg-white shadow-2xl rounded-3xl p-8 md:p-12">
+      <div className={`w-full max-w-xl shadow-2xl rounded-3xl p-8 md:p-12 transition-colors duration-300 ${isDark ? "bg-gray-800" : "bg-white"}`}>
 
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className=" flex items-center gap-2 text-red-600 hover:text-red-800 font-medium transition cursor-pointer"
+          className="flex items-center gap-2 text-red-500 hover:text-red-400 font-medium transition cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,14 +47,13 @@ function DeleteStudent() {
           Back
         </button>
 
-        
         {/* Title */}
         <div className="text-center mb-8">
-          <div className="text-5xl mb-4 text-red-500">⚠️</div>
-          <h2 className="text-3xl font-bold text-red-600">
+          <div className="text-5xl mb-4">⚠️</div>
+          <h2 className="text-3xl font-bold text-red-500">
             Delete Student
           </h2>
-          <p className="text-gray-500 mt-2">
+          <p className={`mt-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
             This action cannot be undone. Please confirm before proceeding.
           </p>
         </div>
@@ -61,7 +63,7 @@ function DeleteStudent() {
 
           {/* Student ID */}
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className={`block font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
               Student ID
             </label>
             <input
@@ -69,22 +71,22 @@ function DeleteStudent() {
               placeholder="Enter student ID to delete"
               id="id"
               value={deletedStudent.id}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+              className={inputClass}
               onChange={handlechange}
             />
           </div>
 
           {/* Confirmation Text */}
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
-              Type <span className="font-bold text-red-600">DELETE</span> to confirm
+            <label className={`block font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+              Type <span className="font-bold text-red-500">DELETE</span> to confirm
             </label>
             <input
               type="text"
               placeholder="Type DELETE"
               id="confirm"
               value={deletedStudent.confirm}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+              className={inputClass}
               onChange={handlechange}
             />
           </div>
@@ -93,14 +95,14 @@ function DeleteStudent() {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
-              className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition shadow-md"
+              className="flex-1 bg-red-600 text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition shadow-md cursor-pointer"
             >
               Delete Student
             </button>
 
             <button
               type="button"
-              className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition"
+              className={`flex-1 py-3 rounded-xl font-semibold transition cursor-pointer ${isDark ? "bg-gray-600 text-gray-200 hover:bg-gray-500" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
               onClick={() => navigate(-1)}
             >
               Cancel
