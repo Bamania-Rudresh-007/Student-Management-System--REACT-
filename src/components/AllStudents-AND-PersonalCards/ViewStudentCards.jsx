@@ -22,7 +22,9 @@ function ViewStudentCards() {
            return;
         }
         setFilterStudents(filteredStudent);
-    }   
+    }
+
+    // Now i have to add search functionality to search student instantly using name or student id
 
   return (
     <div className={`min-h-screen p-6 md:p-10 transition-colors duration-300 ${isDark ? "bg-gray-900" : "bg-gray-50"}`}>
