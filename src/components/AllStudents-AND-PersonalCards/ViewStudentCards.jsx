@@ -50,16 +50,65 @@ function ViewStudentCards() {
     setFilterStudents(students);
   }, [])    
 
-    const handleFilter = (e) => {
-        const selectedCourse = e.target.value;
-        let filteredStudent = students.filter((student) => student.course == selectedCourse)
+  const handleFilter = (e) => {
+    const selectedCourse = e.target.value;
+    let filteredStudent = students.filter((student) => student.course == selectedCourse)
+    if(e.target.value == "All"){
+      setFilterStudents(students) 
+      return;
+    }
+    setFilterStudents(filteredStudent);
+  }   
 
-        if(e.target.value == "All"){
-           setFilterStudents(students) 
-           return;
-        }
-        setFilterStudents(filteredStudent);
-    }   
+  const handleSearchByName = (e) => {
+    const { value } = e.target;
+    if(value == ""){
+      console.log(true);
+      setFilterStudents(students)
+      return;
+    }
+    const filterByName = filterStudents.filter((student) => {
+      return student.name.toLowerCase().includes(value.toLowerCase())
+    })
+    setFilterStudents(filterByName)
+  }
+  
+  // ── Modal styles helpers ──────────────────────────────────────────────────
+  const cardBg   = isDark ? "bg-gray-800 border-gray-700"   : "bg-white border-gray-200";
+  const titleCls = isDark ? "text-white"                    : "text-gray-800";
+  const subCls   = isDark ? "text-gray-400"                 : "text-gray-500";
+
+  function OptionCard({ icon, label, desc, active, onClick }) {
+    const base = "cursor-pointer flex items-start gap-4 p-4 rounded-2xl border-2 transition-all duration-200 select-none";
+    const theme = active
+      ? "border-indigo-500 bg-indigo-500/10"
+      : isDark
+        ? "border-gray-700 hover:border-gray-500 bg-gray-700/40"
+        : "border-gray-200 hover:border-indigo-200 bg-gray-50";
+    return (
+      <div className={`${base} ${theme}`} onClick={onClick} role="button" tabIndex={0}
+        onKeyDown={(e) => e.key === "Enter" && onClick()}>
+        {/* Radio dot */}
+        <div className={`mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all
+          ${active ? "border-indigo-500" : isDark ? "border-gray-600" : "border-gray-300"}`}>
+          {active && <div className="w-2.5 h-2.5 rounded-full bg-indigo-500" />}
+        </div>
+        {/* Icon */}
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-xl
+          ${active
+            ? isDark ? "bg-indigo-900 text-indigo-300" : "bg-indigo-100 text-indigo-600"
+            : isDark ? "bg-gray-700 text-gray-400"     : "bg-gray-100 text-gray-500"}`}>
+          {icon}
+        </div>
+        {/* Text */}
+        <div className="flex flex-col min-w-0">
+          <span className={`font-semibold text-sm ${active ? isDark ? "text-indigo-300" : "text-indigo-700" : titleCls}`}>{label}</span>
+          <span className={`text-xs mt-0.5 ${subCls}`}>{desc}</span>
+        </div>
+      </div>
+    );
+  }
+  // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <div className={`min-h-screen p-6 md:p-10 transition-colors duration-300 ${isDark ? "bg-gray-900" : "bg-gray-50"}`}>
