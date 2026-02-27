@@ -7,14 +7,15 @@ function ViewStudentCards() {
   const { students } = useStudentServices();
   const [filterStudents , setFilterStudents] = useState([]);
   const navigate = useNavigate();
-  let cuurrentViewType = JSON.parse(localStorage.getItem("currentViewStudentsThrough"));
   const isDark = JSON.parse(localStorage.getItem("Theme")) === "Dark Mode";
+  let cuurrentViewType = JSON.parse(localStorage.getItem("currentViewStudentsThrough"));
 
   // ── Modal UI state (new) ──────────────────────────────────────────────────
   const [showModal, setShowModal] = useState(true);
   const [modalSelected, setModalSelected] = useState(null); // "own" | "random"
   const [dummyLimit, setDummyLimit] = useState(20);
   const [modalError, setModalError] = useState("");
+  const [baseStudent, setBaseStudents] = useState([]);
   const MAX = 150;
 
   function handleModalLimitChange(val) {
@@ -35,9 +36,11 @@ function ViewStudentCards() {
 
     if (modalSelected === "own") {
       localStorage.setItem("currentViewStudentsThrough", JSON.stringify("existingStudent"));
+      setBaseStudents(students);
       setFilterStudents(students); // show real students
     } else {
       localStorage.setItem("currentViewStudentsThrough", JSON.stringify("Data"));
+      setBaseStudents(data.slice(0, dummyLimit))
       setFilterStudents(data.slice(0, dummyLimit)); // show only dummy, hide real
     }
 
@@ -52,9 +55,9 @@ function ViewStudentCards() {
 
   const handleFilter = (e) => {
     const selectedCourse = e.target.value;
-    let filteredStudent = students.filter((student) => student.course == selectedCourse)
+    let filteredStudent = baseStudent.filter((student) => student.course == selectedCourse)
     if(e.target.value == "All"){
-      setFilterStudents(students) 
+      setFilterStudents(baseStudent) 
       return;
     }
     setFilterStudents(filteredStudent);
@@ -64,7 +67,7 @@ function ViewStudentCards() {
     const { value } = e.target;
     if(value == ""){
       console.log(true);
-      setFilterStudents(students)
+      setFilterStudents(baseStudent)
       return;
     }
     const filterByName = filterStudents.filter((student) => {
@@ -72,7 +75,7 @@ function ViewStudentCards() {
     })
     setFilterStudents(filterByName)
   }
-  
+
   // ── Modal styles helpers ──────────────────────────────────────────────────
   const cardBg   = isDark ? "bg-gray-800 border-gray-700"   : "bg-white border-gray-200";
   const titleCls = isDark ? "text-white"                    : "text-gray-800";
