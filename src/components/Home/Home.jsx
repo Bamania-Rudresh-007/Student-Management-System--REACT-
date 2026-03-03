@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 function Home() {
     const navigate = useNavigate();
     const {setIsLogin, loginUser} =  useUsers();
+    
     const [currentTheme, setCurrentTheme] = useState(() => {
         try {
             const theme = JSON.parse(localStorage.getItem("Theme"));
